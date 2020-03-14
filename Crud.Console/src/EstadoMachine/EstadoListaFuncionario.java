@@ -24,7 +24,7 @@ public class EstadoListaFuncionario extends EstadoMachine{
         crud.lista(EntidadesDisponiveis.FUNCIONARIO);
         
         try{            
-            System.out.println("\n0 - Voltar ao menu\n1 - Cadastrar\n2 - Alterar\n3 - Excluir");        
+           System.out.println("\n0 - Voltar ao menu\n1 - Cadastrar\n2 - Excluir");         
             int opcao = scan.nextInt();
             switch (opcao)
             {
@@ -35,10 +35,7 @@ public class EstadoListaFuncionario extends EstadoMachine{
                     CrudConsole.estadoConsole = EnumEstado.CadastroFuncionario.getEstadoMaquina();
                     break;
                 case 2:
-                    CrudConsole.estadoConsole = EnumEstado.MenuGerente.getEstadoMaquina();
-                    break;
-                case 3:
-                    CrudConsole.estadoConsole = EnumEstado.MenuGerente.getEstadoMaquina();
+                    CrudConsole.estadoConsole = EnumEstado.ExcluiFuncionario.getEstadoMaquina();
                     break;
             }            
         }

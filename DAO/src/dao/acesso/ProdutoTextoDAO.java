@@ -27,13 +27,13 @@ public class ProdutoTextoDAO extends DAO {
     public ProdutoTextoDAO(){
         super(Produto.class);
     }
-    public String path = "C:/Joaozin-Vitin/DAO/src/dao/acesso/produto.txt";
+    public static String path = "C:/Joaozin-Vitin/DAO/src/dao/acesso/produto.txt";
     
-    public static void escritor(String path, Entidade entidade) throws IOException {
+    public static void escritor( Entidade entidade) throws IOException {
         BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path,true));
         String linha = "";
         Produto p = (Produto)entidade;
-        linha = p.getCategoria() + ";" + p.getDescricao() + ";" + p.getValor() + ";";
+        linha = p.getDescricao() + ";" + p.getCategoria() + ";" + p.getValor() + ";";
 
         buffWrite.append(linha + "\n");
         buffWrite.close();
@@ -46,42 +46,54 @@ public class ProdutoTextoDAO extends DAO {
     }
 
     @Override
-    public void insere(Entidade entidade, EntidadesDisponiveis enumEntidade) {
-        
+    public void insere(Entidade entidade, EntidadesDisponiveis enumEntidade) {        
         try {
-             escritor(path, entidade);
+             escritor( entidade);
            } catch (IOException ex) {
                Logger.getLogger(FuncionarioTextoDAO.class.getName()).log(Level.SEVERE, null, ex);
            }   
     }
 
     @Override
-    public Entidade atualiza(Entidade entidade, EntidadesDisponiveis enumEntidade) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void deleta(Entidade entidade, EntidadesDisponiveis enumEntidade) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleta(int id, EntidadesDisponiveis enumEntidade)throws IOException {
+        String texto="";
+        String linha="";        
+        int IdContador = 1;
+        BufferedReader buffRead = new BufferedReader(new FileReader(path));                  
+        while (true) {
+            linha = buffRead.readLine();
+            if(linha == null){
+                if(id > IdContador){
+                    System.out.println("Codigo do Produto não encontrado");
+                    return;
+                }
+                break;   
+            }
+            if(id != IdContador){
+              texto = texto + linha + "\n"; 
+            }   
+            IdContador++; 
+        }       
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path,false));
+        buffWrite.write(texto);
+        buffWrite.close();
+        System.out.println("Produto excluido com sucesso");
     }
 
     @Override
     public void lista(EntidadesDisponiveis enumEntidade) throws IOException {
-        String vetor [];
-                
-        BufferedReader buffRead = new BufferedReader(new FileReader(path));
-                  
+        String vetor [];                
+        BufferedReader buffRead = new BufferedReader(new FileReader(path));                  
         String linha = "";
-        
+        int IdContador = 1;
         while (true) {
-
             linha = buffRead.readLine();
-            if(linha == null)
-                break;                        
-            vetor = linha.split(";");
-            
-            System.out.println("Produto: " + vetor[0] +", Categoria: " + vetor[1] + ", Preço: $" + vetor[2]);
-                        
+            if(linha == null){
+                break;        
+            }                
+            vetor = linha.split(";");            
+            System.out.println("Codigo do Produto: " + IdContador +", Produto: " + vetor[0] +", Categoria: " + vetor[1] + ", Preço: $" + vetor[2]);
+            IdContador++;            
         }
         buffRead.close();
     }

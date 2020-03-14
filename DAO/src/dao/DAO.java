@@ -24,8 +24,7 @@ public abstract class DAO <E extends Entidade> {
     
     public abstract E seleciona(Entidade entidade, EntidadesDisponiveis enumEntidade)throws SQLException;
     public abstract void insere(Entidade entidade, EntidadesDisponiveis enumEntidade);
-    public abstract E atualiza(Entidade entidade, EntidadesDisponiveis enumEntidade);
-    public abstract void deleta(Entidade entidade, EntidadesDisponiveis enumEntidade);
+    public abstract void deleta(int id, EntidadesDisponiveis enumEntidade)throws IOException;
     public abstract void lista(EntidadesDisponiveis enumEntidade)throws IOException;
     
     

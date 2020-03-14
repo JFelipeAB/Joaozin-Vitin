@@ -57,28 +57,52 @@ public class PedidoTextoDAO extends DAO{
     }
 
     @Override
-    public Entidade atualiza(Entidade entidade, EntidadesDisponiveis enumEntidade) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void deleta(Entidade entidade, EntidadesDisponiveis enumEntidade) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleta(int id, EntidadesDisponiveis enumEntidade)throws IOException {
+        String texto="";
+        String linha="";        
+        int IdContador = 1;
+        BufferedReader buffRead = new BufferedReader(new FileReader(path));                  
+        while (true) {
+            linha = buffRead.readLine();
+            if(linha == null){
+                if(id > IdContador){
+                    System.out.println("Codigo do pedido não encontrado");
+                    return;
+                }
+                break;   
+            }
+            if(id != IdContador){
+              texto = texto + linha + "\n"; 
+            }   
+            IdContador++; 
+        }       
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path,false));
+        buffWrite.write(texto);
+        buffWrite.close();
+        System.out.println("Pedido excluido com sucesso");
     }
 
     @Override
     public void lista(EntidadesDisponiveis enumEntidade) throws IOException {
-        String path = "C:/Joaozin-Vitin/DAO/src/dao/acesso/pedido.txt";
-    	String vetor [];                
+        String vetor [];
+                
         BufferedReader buffRead = new BufferedReader(new FileReader(path));
                   
-                  
         String linha = "";
-        
+        int IdContador =1;
         while (true) {
-                        
-            
+            linha = buffRead.readLine();
+            if(linha == null){
+                break;        
+            }                
+            vetor = linha.split(";");            
+            System.out.print("\nCodigo do Pedido: " + IdContador +", Cliente: " + vetor[0] +", Vendedor: " + vetor[1]);
+            for(int i = 0; i< Integer.parseInt(vetor[2]);i++){
+                System.out.print(", Produto "+ (i+1) +": "+ vetor[i+3]);
+            } 
+            IdContador++;
         }
+        buffRead.close();
         
     }
     

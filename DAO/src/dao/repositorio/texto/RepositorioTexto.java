@@ -25,18 +25,13 @@ public class RepositorioTexto extends Repositorio {
     public void insere(Entidade entidade, EntidadesDisponiveis tipoEntidade) {
         DAO dao = FabricaDAOs.Fabrica(tipoEntidade, TipoRepositorio.TEXTO);
         
-        dao.insere(entidade, tipoEntidade);
-        
+        dao.insere(entidade, tipoEntidade);        
     }
 
     @Override
-    public Entidade atualiza(Entidade entidade, EntidadesDisponiveis tipoEntidade) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Entidade deleta(Entidade entidade, EntidadesDisponiveis tipoEntidade) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleta(int id, EntidadesDisponiveis tipoEntidade) {
+        DAO dao = FabricaDAOs.Fabrica(tipoEntidade, TipoRepositorio.TEXTO);
+        dao.deleta(id , tipoEntidade);
     }
 
     @Override

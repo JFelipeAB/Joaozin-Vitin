@@ -22,8 +22,11 @@ public enum EnumEstado {
     ListaFuncionario (new EstadoListaFuncionario()),
     ListaPedido (new EstadoListaPedido()),
     ListaProduto (new EstadoListaProduto()),
-    ListaCliente (new EstadoListaCliente());
-   
+    ListaCliente (new EstadoListaCliente()),
+    ExcluiPedido (new EstadoExcluiPedido()),
+    ExcluiCliente (new EstadoExcluiCliente()),
+    ExcluiFuncionario (new EstadoExcluiFuncionario()),
+    ExcluiProduto (new EstadoExcluiProduto());
     
     
     private final EstadoMachine estadoMaquina;

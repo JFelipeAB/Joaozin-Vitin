@@ -27,17 +27,17 @@ public class FuncionarioTextoDAO extends DAO {
     
     private final ConcurrentHashMap<String, Funcionario> funcionarios = new ConcurrentHashMap<>();
     
-    public FuncionarioTextoDAO()
-    { 
-        super(Funcionario.class);
-        
+    public FuncionarioTextoDAO()    { 
+        super(Funcionario.class);        
     }
     
-    public static Funcionario leitor(String path, Entidade entidade) throws IOException {
+    public  String path = "C:/Joaozin-Vitin/DAO/src/dao/acesso/funcionario.txt";
+    
+    public static Funcionario leitor(String caminho, Entidade entidade) throws IOException {
         String vetor [];
         Funcionario f = (Funcionario)entidade;
         Funcionario retorno = null;
-        BufferedReader buffRead = new BufferedReader(new FileReader(path));
+        BufferedReader buffRead = new BufferedReader(new FileReader(caminho));
         String linha = "";
         
         while (true) {
@@ -45,8 +45,7 @@ public class FuncionarioTextoDAO extends DAO {
             linha = buffRead.readLine();
             
             if(linha == null)
-                break;
-            
+                break;           
             
             vetor = linha.split(";");
 
@@ -76,13 +75,9 @@ public class FuncionarioTextoDAO extends DAO {
         System.out.println("Funcionario cadastrado.");
     }
  
-
     @Override
     public void insere(Entidade entidade, EntidadesDisponiveis enumEntidade) {
-        //String path = "/Users/vitorlupinetti/Desktop/Vitor/lp2/Joaozin-Vitin/DAO/src/dao/acesso/funcionario.txt";
-        String path = "C:/Joaozin-Vitin/DAO/src/dao/acesso/funcionario.txt";
-        
-    
+       
         try {
              escritor(path, entidade);
            } catch (IOException ex) {
@@ -93,9 +88,7 @@ public class FuncionarioTextoDAO extends DAO {
     @Override
     public Entidade seleciona(Entidade entidade, EntidadesDisponiveis enumEntidade) throws SQLException {
         Funcionario entidadeRetorno = new Funcionario();
-        String path = "C:/Joaozin-Vitin/DAO/src/dao/acesso/funcionario.txt";
-        //String path = "/Users/vitorlupinetti/Desktop/Vitor/lp2/Joaozin-Vitin/DAO/src/dao/acesso/funcionario.txt";
-     
+        
            try {
                 entidadeRetorno = leitor(path, entidade);
            } catch (IOException ex) {
@@ -106,43 +99,51 @@ public class FuncionarioTextoDAO extends DAO {
     }
 
     @Override
-    public void deleta(Entidade entidade, EntidadesDisponiveis enumEntidade) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Entidade atualiza(Entidade entidade, EntidadesDisponiveis enumEntidade) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
-     *
-     * @param enumEntidade
-     * @throws IOException
-     */
-    @Override
-    public void lista(EntidadesDisponiveis enumEntidade)throws IOException{
-    	String path = "C:/Joaozin-Vitin/DAO/src/dao/acesso/funcionario.txt";
-    	String vetor [];
-                
-        BufferedReader buffRead = new BufferedReader(new FileReader(path));
-                  
-        String linha = "";
-        
+    public void deleta(int id, EntidadesDisponiveis enumEntidade) throws IOException{
+        String texto="";
+        String linha="";        
+        int IdContador = 1;
+        BufferedReader buffRead = new BufferedReader(new FileReader(path));                  
         while (true) {
+            linha = buffRead.readLine();
+            if(linha == null){
+                if(id > IdContador){
+                    System.out.println("Codigo do Funcionario não encontrado");
+                    return;
+                }
+                break;   
+            }
+            if(id != IdContador){
+              texto = texto + linha + "\n"; 
+            }   
+            IdContador++; 
+        }       
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path,false));
+        buffWrite.write(texto);
+        buffWrite.close();
+        System.out.println("Funcionario excluido com sucesso");
+    }
 
+    @Override
+    public void lista(EntidadesDisponiveis enumEntidade)throws IOException{    	
+    	String vetor [];                
+        BufferedReader buffRead = new BufferedReader(new FileReader(path));                  
+        String linha = "";
+        int IdContador = 1;
+        while (true) {
             linha = buffRead.readLine();
             if(linha == null)
                 break;                        
             vetor = linha.split(";");
             
-            System.out.print("Nome:" + vetor[0] +", UserName: " + vetor[1]);
+            System.out.print("Codigo do Funcionario: " + IdContador +", Nome:" + vetor[0] +", UserName: " + vetor[1]);
             if(vetor[3].equals("1")){
             	System.out.println(", Gerente");
             }
-            else
+            else{
             	System.out.println(", Vendedor");
-        
+            }
+            IdContador ++;
         }
         buffRead.close();
     }

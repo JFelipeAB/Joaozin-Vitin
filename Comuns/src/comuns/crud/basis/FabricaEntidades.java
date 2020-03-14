@@ -7,7 +7,6 @@ package comuns.crud.basis;
 import comuns.enums.EntidadesDisponiveis;
 import comuns.vos.Cliente;
 import comuns.vos.Funcionario;
-import comuns.vos.ItemPedido;
 import comuns.vos.Pedido;
 import comuns.vos.Produto;
 /**
@@ -28,10 +27,7 @@ public class FabricaEntidades {
                 break;
             case PEDIDO:
                 entidadeRetorno = new Pedido();
-                break;
-            case ITEM_PEDIDO:
-                entidadeRetorno = new ItemPedido();
-                break;
+                break;            
             case CLIENTE:
                 entidadeRetorno = new Cliente();
                 break;

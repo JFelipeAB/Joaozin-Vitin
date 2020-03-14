@@ -10,6 +10,7 @@ import comuns.enums.EntidadesDisponiveis;
 import dao.DAO;
 import java.sql.SQLException;
 import comuns.vos.Cliente;
+import static dao.acesso.ProdutoTextoDAO.path;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -28,9 +29,10 @@ public class ClienteTextoDAO extends DAO{
         super(Cliente.class);
     }
     
-        
-    public static void escritor(String path, Entidade entidade) throws IOException {
-        BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path,true));
+    public String path = "C:/Joaozin-Vitin/DAO/src/dao/acesso/cliente.txt"; 
+    
+    public static void escritor(String caminho, Entidade entidade) throws IOException {
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter(caminho,true));
         String linha = "";
         Cliente c = (Cliente)entidade;
         linha = c.getNome() + ";" + c.getEndereço()+ ";" + c.getTelefone();
@@ -48,7 +50,7 @@ public class ClienteTextoDAO extends DAO{
 
     @Override
     public void insere(Entidade entidade, EntidadesDisponiveis enumEntidade) {
-    String path = "C:/Joaozin-Vitin/DAO/src/dao/acesso/cliente.txt";    
+       
         try {
              escritor(path, entidade);
            } catch (IOException ex) {
@@ -57,32 +59,46 @@ public class ClienteTextoDAO extends DAO{
     }
 
     @Override
-    public Entidade atualiza(Entidade entidade, EntidadesDisponiveis enumEntidade) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void deleta(Entidade entidade, EntidadesDisponiveis enumEntidade) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleta(int id, EntidadesDisponiveis enumEntidade) throws IOException{
+        String texto="";
+        String linha="";        
+        int IdContador = 1;
+        BufferedReader buffRead = new BufferedReader(new FileReader(path));                  
+        while (true) {
+            linha = buffRead.readLine();
+            if(linha == null){
+                if(id > IdContador){
+                    System.out.println("Codigo do Cliente não encontrado");
+                    return;
+                }
+                break;   
+            }
+            if(id != IdContador){
+              texto = texto + linha + "\n"; 
+            }   
+            IdContador++; 
+        }       
+        BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path,false));
+        buffWrite.write(texto);
+        buffWrite.close();
+        System.out.println("Cliente excluido com sucesso");
     }
 
     @Override
     public void lista(EntidadesDisponiveis enumEntidade)throws IOException  {
-        String path = "C:/Joaozin-Vitin/DAO/src/dao/acesso/cliente.txt";
-    	String vetor [];                
+        String vetor [];                
         BufferedReader buffRead = new BufferedReader(new FileReader(path));
-                  
+        int IdContador = 1;         
         String linha = "";
         
         while (true) {
-
             linha = buffRead.readLine();
-            if(linha == null)
-                break;                        
-            vetor = linha.split(";");
-            
-            System.out.println("Cliente:" + vetor[0] +", Endereço: " + vetor[1] + ", Telefone:" + vetor[2]);            
-            
+            if(linha == null){
+                break; 
+            }
+            vetor = linha.split(";");            
+            System.out.println("Codigo do Cliente: " + IdContador +", Cliente: " + vetor[0] +", Endereço: " + vetor[1] + ", Telefone: " + vetor[2]);            
+            IdContador++;
         }
         buffRead.close();
     }
