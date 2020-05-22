@@ -31,7 +31,7 @@ public class FuncionarioTextoDAO extends DAO {
         super(Funcionario.class);        
     }
     
-    public  String path = "C:/Joaozin-Vitin/DAO/src/dao/acesso/funcionario.txt";
+    public  String path = "C:/Projeto_da_Faculdade_Java_com_Camadas/DAO/src/dao/acesso/funcionario.txt";
     
     public static Funcionario leitor(String caminho, Entidade entidade) throws IOException {
         String vetor [];

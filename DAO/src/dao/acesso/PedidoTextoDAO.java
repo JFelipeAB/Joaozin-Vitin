@@ -27,7 +27,7 @@ public class PedidoTextoDAO extends DAO{
     {
         super(Pedido.class);
     }
-    public String path = "C:/Joaozin-Vitin/DAO/src/dao/acesso/pedido.txt";
+    public String path = "C:/Projeto_da_Faculdade_Java_com_Camadas/DAO/src/dao/acesso/pedido.txt";
     
     public static void escritor(String caminho, Entidade entidade) throws IOException {
         BufferedWriter buffWrite = new BufferedWriter(new FileWriter(caminho,true));
