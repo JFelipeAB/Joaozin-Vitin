@@ -37,8 +37,8 @@ public class ThreadMessages extends Thread {
         status = value;
     }
 
-    private void sendMessage(String msg) throws InterruptedException {
-        System.out.printf("%s - Valor %s\n", Instant.now().toString(), msg);
+    private void sendMessage(String message) throws InterruptedException {
+        System.out.printf(message);
         Thread.sleep(100);
     }
 }

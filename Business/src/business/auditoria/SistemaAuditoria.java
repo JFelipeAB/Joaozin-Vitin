@@ -37,14 +37,14 @@ public class SistemaAuditoria {
         return message;
     }
     
-    void activate(){
+    public void activate(){
         if (thread == null){
             thread = new ThreadMessages();
             thread.start();
         }
     }
     
-    void desactivate() throws InterruptedException{
+    public void desactivate() throws InterruptedException{
         if (thread != null) {
             thread.setStatus(false);
             thread.join(2000);

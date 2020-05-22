@@ -1,3 +1,4 @@
 Lara;EstradaAlvarenga;69696969
 Romero;alvarenga;34343434
 Jerson;pernambuco;20121015
+joazin;rua do joazin;99999999

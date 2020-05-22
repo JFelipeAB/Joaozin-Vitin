@@ -9,6 +9,7 @@ package crud.console;
 import business.config.Config;
 import EstadoMachine.EstadoMachine;
 import EstadoMachine.EnumEstado;
+import business.auditoria.SistemaAuditoria;
 import comuns.enums.TipoRepositorio;
 /**
  *
@@ -20,12 +21,18 @@ public class CrudConsole {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        Config.getInstance().setDatabase(TipoRepositorio.TEXTO);
-        estadoConsole = EnumEstado.Inicio.getEstadoMaquina();
-        Boolean saida = false;
-        while (!saida){
-            saida = estadoConsole.Executa();
+    public static void main(String[] args) throws InterruptedException {
+        try{
+            Config.getInstance().setDatabase(TipoRepositorio.TEXTO);
+            SistemaAuditoria.getIstance().activate();
+            estadoConsole = EnumEstado.Inicio.getEstadoMaquina();
+            Boolean saida = false;
+            while (!saida){
+                saida = estadoConsole.Executa();
+            }
+        }
+        finally{
+            SistemaAuditoria.getIstance().desactivate();
         }
     }   
 }

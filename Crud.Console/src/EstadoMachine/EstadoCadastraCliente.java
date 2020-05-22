@@ -5,11 +5,13 @@
  */
 package EstadoMachine;
 
+import business.auditoria.SistemaAuditoria;
 import business.crud.Crud;
 import comuns.enums.EntidadesDisponiveis;
 import java.util.Scanner;
 import comuns.vos.Cliente;
 import crud.console.CrudConsole;
+import java.time.Instant;
 /**
  *
  * @author 082170031
@@ -31,7 +33,7 @@ public class EstadoCadastraCliente extends EstadoMachine{
 
             Crud crud = new Crud();
             crud.Insere(cliente, EntidadesDisponiveis.CLIENTE);
-
+            SistemaAuditoria.getIstance().addMessage("Cliente adcionado - Data do cadastro: " + Instant.now().toString());
             CrudConsole.estadoConsole = EnumEstado.MenuFuncionario.getEstadoMaquina();
         }
         catch(Exception e){
