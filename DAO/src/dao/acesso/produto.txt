@@ -1,5 +1,9 @@
-doces;bolacha;6.0;
-Doce;Picole;2.0;
-comida;Amendoim;2.05;
+bolacha;doce;6.0;
+Picole;Doce;2.0;
+Amendoim;comida;2.05;
 Meia;roupa;4.09;
-Garrafa;pote;9.09;
+Garrafa;vazilha;9.09;
+Pirulito;Doce;1.0;
+camisinha;farmaceutico;0.5;
+cristal Atomico;Materia-prima;70000.5;
+Nariz de palha�o;Vestimenta;0.5;

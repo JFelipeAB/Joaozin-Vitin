@@ -4,11 +4,13 @@
  * and open the template in the editor.
  */
 package EstadoMachine;
+import business.auditoria.SistemaAuditoria;
 import crud.console.CrudConsole;
 import java.util.Scanner;
 import business.crud.Crud;
 import comuns.enums.EntidadesDisponiveis;
 import comuns.vos.Funcionario;
+import java.time.Instant;
 /**
  *
  * @author 082170017
@@ -32,7 +34,7 @@ public class EstadoCadastraFuncionario extends EstadoMachine{
 
             Crud crud = new Crud();
             crud.Insere(func, EntidadesDisponiveis.FUNCIONARIO);
-
+            SistemaAuditoria.getIstance().addMessage("\n************************Exclusivo diretoria**************************\n*Funcionario adicionado - Data do cadastro: "+Instant.now().toString()+"*\n*********************************************************************\n");
             CrudConsole.estadoConsole = EnumEstado.MenuGerente.getEstadoMaquina();
         }
         catch(Exception e){

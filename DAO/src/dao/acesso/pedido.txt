@@ -1,2 +1,4 @@
 Cleo Pires;Alfredo;3;bala;doce;picole;
 Rei Leonidas;Administrador;5;Espada;Escudo;Bota;Capacete;Elmo;
+GodZilla;Padr�o;1;Cristal Atomico;
+Palha�o Patati;Administrador;3;Nariz de palha�o;Peruca;sapato 56;

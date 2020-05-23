@@ -136,7 +136,7 @@ public class FuncionarioTextoDAO extends DAO {
                 break;                        
             vetor = linha.split(";");
             
-            System.out.print("Codigo do Funcionario: " + IdContador +", Nome:" + vetor[0] +", UserName: " + vetor[1]);
+            System.out.print("Codigo do Funcionario: " + IdContador +", Nome:" + vetor[0] +", UserName: " + vetor[1]+", Senha: " + vetor[2]);
             if(vetor[3].equals("1")){
             	System.out.println(", Gerente");
             }

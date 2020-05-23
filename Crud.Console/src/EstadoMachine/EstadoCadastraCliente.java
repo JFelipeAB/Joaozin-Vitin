@@ -33,7 +33,7 @@ public class EstadoCadastraCliente extends EstadoMachine{
 
             Crud crud = new Crud();
             crud.Insere(cliente, EntidadesDisponiveis.CLIENTE);
-            SistemaAuditoria.getIstance().addMessage("Cliente adcionado - Data do cadastro: " + Instant.now().toString());
+            SistemaAuditoria.getIstance().addMessage("\n***********************Exclusivo diretoria***********************\n*Cliente adicionado - Data do cadastro: "+Instant.now().toString()+"*\n*****************************************************************\n");
             CrudConsole.estadoConsole = EnumEstado.MenuFuncionario.getEstadoMaquina();
         }
         catch(Exception e){

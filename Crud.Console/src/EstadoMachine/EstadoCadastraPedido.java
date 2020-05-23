@@ -5,11 +5,13 @@
  */
 package EstadoMachine;
 
+import business.auditoria.SistemaAuditoria;
 import business.config.Config;
 import business.crud.Crud;
 import comuns.enums.EntidadesDisponiveis;
 import comuns.vos.Pedido;
 import crud.console.CrudConsole;
+import java.time.Instant;
 import java.util.Scanner;
 /**
  *
@@ -29,7 +31,7 @@ public class EstadoCadastraPedido extends EstadoMachine{
             String[] produtos = new String[pedido.getQtdProdutos()];
 
             for (int i = 0; i < pedido.getQtdProdutos(); i++) {
-                System.out.println("Digite o Nome do produto " + i + " :");
+                System.out.println("Digite o Nome do produto " + (i+1) + " :");
                 scan = new Scanner(System.in);
                 produtos[i] = scan.nextLine().trim();
             }
@@ -38,7 +40,7 @@ public class EstadoCadastraPedido extends EstadoMachine{
 
             Crud crud = new Crud();        
             crud.Insere(pedido, EntidadesDisponiveis.PEDIDO);
-
+            SistemaAuditoria.getIstance().addMessage("\n**********************Exclusivo diretoria***********************\n*Pedido adicionado - Data do cadastro: "+Instant.now().toString()+"*\n****************************************************************\n");
             CrudConsole.estadoConsole = EnumEstado.MenuFuncionario.getEstadoMaquina();
         }
         catch(Exception e){

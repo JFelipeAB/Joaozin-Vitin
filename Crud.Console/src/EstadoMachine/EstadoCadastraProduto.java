@@ -5,11 +5,13 @@
  */
 package EstadoMachine;
 
+import business.auditoria.SistemaAuditoria;
 import comuns.vos.Produto;
 import crud.console.CrudConsole;
 import java.util.Scanner;
 import business.crud.Crud;
 import comuns.enums.EntidadesDisponiveis;
+import java.time.Instant;
 /**
  *
  * @author Administrador
@@ -25,12 +27,12 @@ public class EstadoCadastraProduto extends EstadoMachine{
             produto.setDescricao(scan.nextLine().trim());
             System.out.println("Digite a categoria: ");
             produto.setCategoria(scan.nextLine().trim());
-            System.out.println("Digite o valor: ");
+            System.out.println("Digite o valor: $");
             produto.setValor(Double.parseDouble(scan.nextLine().trim()));
 
             Crud crud = new Crud();
             crud.Insere(produto, EntidadesDisponiveis.PRODUTO);
-
+            SistemaAuditoria.getIstance().addMessage("\n**********************Exclusivo diretoria************************\n*Produto adicionado - Data do cadastro: "+Instant.now().toString()+"*\n*****************************************************************\n");    
             CrudConsole.estadoConsole = EnumEstado.MenuFuncionario.getEstadoMaquina();
         }
         catch(Exception e){
